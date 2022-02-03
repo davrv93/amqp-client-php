@@ -15,17 +15,14 @@ echo $severity;
 
 $channel->queue_declare('my_new_queue', false, true, false, false, false, new AMQPTable(['x-queue-type' => 'quorum']));
 
-
 $data = implode(' ', array_slice($argv, 1));
 
 if (empty($data)) {
     $data = "Hello World!";
 }
 
-// MARCAMOS EL MENSAJE COMO modo de entrega persistente
 $msg = new AMQPMessage(
     $data,
-    //MARCAMOS MENSAJES COMO PERSISTENTES
     array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
 );
 
